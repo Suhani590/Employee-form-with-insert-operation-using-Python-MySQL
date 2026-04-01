@@ -1,0 +1,57 @@
+#GUI-Event
+from tkinter import
+#object on calss Tk
+window=Tk()
+window.title("Welcoe to GUI Python")
+window.geometry('350x200')
+
+#declaring controls
+head=Label(window,width=20,text="Adding Employee details",font='sans 14 bold',bg="green",fg='white')
+ecode=Label(window,width=20,text="Ecode:",bg="yellow")
+ename=Label(window,width=20,text="salary:",bg="yellow")
+sal=Label(window,width=20,text="salary:",bg="yellow")
+dept=Label(window,width=20,text="Department:",bg="yellow")
+
+
+txt1=Entry(window,width=20)
+txt2=Entry(window,width=20)
+txt3=Entry(window,width=20)
+txt4=Entry(window,width=20)
+
+#placing controls,using grid
+head.grid(column=0,row=0,columnspan=4,sticky='nsew',padx=10,pady=10)
+ecode.grid(column=0,row=1)
+ename.grid(column=0,row=2)
+sal.grid(column=0,row=3)
+dept.grid(column=0,row=4)
+
+
+
+txt1.grid(column=1,row=1)
+txt1.grid(column=1,row=2)
+txt1.grid(column=1,row=3)
+txt1.grid(column=1,row=4)
+
+#function to establish db connection and db operations
+def clicked():
+    import mysql.connector as sql
+    import pandas as pd 
+    db_connection=sql.connect(host='localhost',
+                    database='sbu',user='root',password=")
+    db_cursor=db_connection.cursor()
+    t1=txt1.get()
+    t2=txt2.get()
+    t3=txt3.get()
+    t4=txt4.get()
+    
+    db_cursor.execute("INSERT INTO empdet(ecode,ename,sal,dcode)
+VALUES(%s,%s,%s,%s)",[str(t1),str(t2),str(t3),str(t4)])
+    db_connection.commit()
+    res="Record added successsfully!"
+    lb=Label(window,bg="cyan",text=res).grid(column=1,row=6)
+
+btn=Button(window,text="Add Record",width=20,bg="blue",fg="white",command=clicked)
+btn.grid(column=1,row=5)
+window.mainloop
+
+
